@@ -1,0 +1,63 @@
+.hero-section {
+  background: url("https://images.unsplash.com/photo-1509042239860-f550ce710b93")
+    no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Logo con animación */
+.logo {
+  max-width: 70px;
+  height: auto;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+  border-radius: 50%;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+}
+
+/* Título cafetería*/
+.cafeteria-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ffc107, #ff9800, #ff5722);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+  letter-spacing: 1px;
+}
+
+/* Botón animado */
+.animated-btn {
+  transition: all 0.3s ease;
+  transform: scale(1);
+  font-weight: bold;
+  box-shadow: 0px 4px 12px rgba(255, 193, 7, 0.5);
+}
+
+.animated-btn:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0px 6px 18px rgba(255, 193, 7, 0.8);
+}
+
+/* Responsive: texto más chico en pantallas pequeñas */
+@media (max-width: 768px) {
+  .cafeteria-title {
+    font-size: 1.6rem;
+  }
+
+  .logo {
+    max-width: 50px;
+  }
+}
