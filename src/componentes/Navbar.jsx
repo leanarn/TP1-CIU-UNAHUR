@@ -15,7 +15,7 @@ export default function Navbar({ onClick }){
                         <button className="nav-link" onClick={() => onClick('Home')}> Inicio </button>
                         <button className="nav-link" onClick={() => onClick('Carta')}> Carta </button>
                         <button className="nav-link" onClick={() => onClick('Contacto')}> Contacto </button>
-                        <button className="nav-link" style={{ marginLeft: 'auto' }}>
+                        <button className="nav-link" onClick={() => onClick("Carrito")} style={{ marginLeft: 'auto' }}>  
                             <i className="bi bi-cart"></i> Ver carrito
                         </button>
                     </div>
