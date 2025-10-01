@@ -1,7 +1,7 @@
 import logo from "../assets/logo2.png";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-export default function Navbar(){
+export default function Navbar({ onClick }){
 
     return(
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -12,9 +12,9 @@ export default function Navbar(){
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav" style={{ width: '100%' }}>
-                        <a className="nav-link" aria-current="page" href="#">Inicio</a>
-                        <a className="nav-link active" href="#">Carta</a>
-                        <a className="nav-link" href="#">Contacto</a>
+                        <button className="nav-link" onClick={() => onClick('Home')}> Inicio </button>
+                        <button className="nav-link" onClick={() => onClick('Carta')}> Carta </button>
+                        <button className="nav-link" onClick={() => onClick('Contacto')}> Contacto </button>
                         <button className="nav-link" style={{ marginLeft: 'auto' }}>
                             <i className="bi bi-cart"></i> Ver carrito
                         </button>
