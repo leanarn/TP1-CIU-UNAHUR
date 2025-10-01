@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import Navbar from '../componentes/Navbar';
 import ProductCard from "../componentes/ProductCard";
 
 export default function Carta(){
@@ -65,7 +64,6 @@ export default function Carta(){
 
     return(
         <div>
-            <Navbar/>
             <div className="container text-center">
                 <div className="row row-cols-auto" style={{ marginTop: '1rem', gap: '1rem', display: 'flex', justifyContent: 'center' }}>
                     {
