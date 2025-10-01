@@ -7,7 +7,7 @@ export default function ProductCard({ producto }){
             </div>
             <div className="card-body">
                 <p className="card-text" style={{ textAlign: 'left' }}> {producto.descripcion} </p>
-                <p style={{ textAlign: 'left' }}>Precio: {producto.precio}</p>
+                <p style={{ textAlign: 'left' }}>Precio: ${producto.precio}</p>
                 <button className="btn btn-primary">Agregar al carrito</button>
             </div>
         </div>
