@@ -1,4 +1,4 @@
-export default function ProductCard({ producto }){
+export default function ProductCard({ producto, alAgregar }){
 
     return(
         <div className="card" style={{ width: '18rem' }}>
@@ -8,7 +8,7 @@ export default function ProductCard({ producto }){
             <div className="card-body">
                 <p className="card-text" style={{ textAlign: 'left' }}> {producto.descripcion} </p>
                 <p style={{ textAlign: 'left' }}>Precio: ${producto.precio}</p>
-                <button className="btn btn-primary">Agregar al carrito</button>
+                <button className="btn btn-primary" onClick ={() => alAgregar(producto)}>Agregar al carrito</button>  {/* Agrego que el boton agregue al carrito,*/}
             </div>
         </div>
     )

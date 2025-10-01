@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import ProductCard from "../componentes/ProductCard";
 
-export default function Carta(){
+export default function Carta({alAgregar}){
     const productos = [
         {
             nombre: 'Café Espresso',
@@ -69,7 +69,7 @@ export default function Carta(){
                     {
                         productos.map(((producto, i) => (
                             <div className="col" key={i}>
-                                <ProductCard producto={producto}/>
+                                <ProductCard producto={producto} alAgregar = {alAgregar}/>
                             </div>
                         )))
                     }
