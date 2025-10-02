@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Esto es rapido para que no se quede la página en blanco
 
-export default function Carrito({ carrito = [ ] }) {
+export default function Carrito({ carrito = [ ], aumentar, disminuir  }) {
     const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
     
 return (
@@ -26,9 +26,42 @@ return (
                                         <li 
                                             key={index} 
                                             className="list-group-item d-flex justify-content-between align-items-center"
-                                        >
-                                            {/* Nombre y Cantidad */}
-                                            <div>
+                                            style={{ padding: '10px 15px' }} // Espaciado
+                                             > {/* Ccerado de LI */}
+                                            <div className="d-flex align-items-center">
+                                                {/* Imagen Chica */}
+                                                <img 
+                                                    src={item.imagen} // URL de la imagen en Carta
+                                                    alt={item.nombre} 
+                                                    style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '5px', marginRight: '15px' }}
+                                                />{/* Nombre del Producto */}
+                                                <span className="fw-bold">{item.nombre}</span>
+                                            </div>
+
+                                            {/*control de cantidad */}
+                                            <div className="d-flex align-items-center">
+                                                <button 
+                                                    className="btn btn-sm btn-outline-danger me-2"
+                                                    onClick={() => disminuir(item.nombre)}
+                                                >
+                                                    {/* Si la cantidad es 1, muestra un ícono de eliminar */}
+                                                    {item.cantidad === 1 ? <i className="bi bi-trash"></i> : <i className="bi bi-dash"></i>}
+                                                </button>
+                                                
+                                                <span className="badge bg-secondary text-light fs-6" style={{ width: '30px' }}>
+                                                    {item.cantidad}
+                                                </span>
+                                                
+                                                <button 
+                                                    className="btn btn-sm btn-outline-success ms-2"
+                                                    onClick={() => aumentar(item.nombre)} 
+                                                >
+                                                    <i className="bi bi-plus"></i>
+                                                </button>
+                                            </div>
+
+                                                {/* Nombre y Cantidad */}
+                                                <div>
                                                 <span className="badge bg-warning text-dark me-2">{item.cantidad}x</span>
                                                 <span className="fw-bold">{item.nombre}</span>
                                             </div>

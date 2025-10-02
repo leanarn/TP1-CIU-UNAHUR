@@ -31,12 +31,44 @@ export default function App() {
 
 
 
+
+
+    // A partir de acá van las funciones para agregar y restar productos DENTRO del carrito
+
+    const aumentarCantidad = (nombreProducto) => {
+        setCarrito(
+            carrito.map(item => item.nombre === nombreProducto ? {...item, cantidad: item.cantidad + 1} // sumar 1 al producto
+                :
+                    item // para que no se rompan los productos que no se aumentan con el map
+          )
+        );
+    };
+
+    const disminuirCantidad = (nombreProducto) => {
+        const productoAEditar = carrito.find(item => item.nombre === nombreProducto);
+
+        if(productoAEditar.cantidad === 1){
+            setCarrito(carrito.filter(item => item.nombre !== nombreProducto)); // Se quita el producto con filter si la cantidad de producto es 1 y se clickea en -
+        }
+        else{
+            setCarrito(carrito.map(item => item.nombre === nombreProducto ? {...item, cantidad: item.cantidad - 1} // Resta 1 si es mas de 1
+                : 
+                    item)) // Para que no se rompa igual que al sumar
+        }
+    }
+
+    // Hasta acá la sección de agregar y sacar productos DENTRO del carrito (Se podrá reutilizar para carta?)
+
+
+
     return (  
         <div>
             { currentView !== 'Home' && <Navbar onClick={setCurrentView}/> }
             { currentView === 'Home' && <Home onClick={() => setCurrentView('Carta')} /> }
             { currentView === 'Carta' && <Carta alAgregar={agregarAlCarrito} /> }
-            { currentView === 'Carrito' && <Carrito carrito = {carrito} /> }
+            { currentView === 'Carrito' && <Carrito carrito = {carrito} 
+                                                    aumentarCantidad = {aumentarCantidad} 
+                                                    disminuirCantidad={disminuirCantidad} /> }
 
         </div>
     );
