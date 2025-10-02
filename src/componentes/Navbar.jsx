@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 import logo from "../assets/logo2.png";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-export default function Navbar({ onClick }){
+export default function Navbar({ verCarrito }){
 
     return(
         <nav className="navbar sticky-top navbar-expand-lg bg-body-tertiary">
@@ -12,10 +13,10 @@ export default function Navbar({ onClick }){
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav" style={{ width: '100%' }}>
-                        <button className="nav-link" onClick={() => onClick('Home')}> Inicio </button>
-                        <button className="nav-link" onClick={() => onClick('Carta')}> Carta </button>
-                        <button className="nav-link" onClick={() => onClick('Contacto')}> Contacto </button>
-                        <button className="nav-link" onClick={() => onClick("Carrito")} style={{ marginLeft: 'auto' }}>  
+                        <Link to="/" className="nav-link" > Inicio </Link>
+                        <Link to="/carta" className="nav-link" > Carta </Link>
+                        <Link to="/contacto" className="nav-link" > Contacto </Link>
+                        <button className="nav-link" style={{ marginLeft: 'auto' }} onClick={verCarrito}>  
                             <i className="bi bi-cart"></i> Ver carrito
                         </button>
                     </div>
