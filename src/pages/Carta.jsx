@@ -1,8 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import ProductCard from "../componentes/ProductCard";
+import Navbar from '../componentes/Navbar';
+import { useEffect, useState } from 'react';
+import Carrito from '../componentes/Carrito';
 
 export default function Carta({alAgregar}){
+    const [mostrarCarrito, setMostrarCarrito] = useState(false);
+    const [productosDelCarrito, setProductosDelCarrito] = useState([]);
     const productos = [
         {
             nombre: 'Café Espresso',
@@ -62,19 +67,27 @@ export default function Carta({alAgregar}){
         }
     ];
 
+    useEffect(() =>{
+        console.log(productosDelCarrito)
+    }, [productosDelCarrito])
+
     return(
         <div>
+            <Navbar verCarrito={() => setMostrarCarrito(!mostrarCarrito)} />
             <div className="container text-center">
                 <div className="row row-cols-auto" style={{ marginTop: '1rem', gap: '1rem', display: 'flex', justifyContent: 'center' }}>
                     {
                         productos.map(((producto, i) => (
                             <div className="col" key={i}>
-                                <ProductCard producto={producto} alAgregar = {alAgregar}/>
+                                <ProductCard producto={producto} alAgregar={() => setProductosDelCarrito([...productosDelCarrito, producto])}/>
                             </div>
                         )))
                     }
                 </div>
             </div>
+            {
+                mostrarCarrito && <Carrito productosDelCarrito={productosDelCarrito} />
+            }
         </div>
     )
 }

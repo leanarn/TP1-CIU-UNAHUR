@@ -1,5 +1,6 @@
 import "./Home.css";
 import logo from "../assets/logo2.png";
+import { Link } from "react-router-dom";
 
 export default function Home({ onClick }) {
     return (
@@ -44,9 +45,9 @@ export default function Home({ onClick }) {
                                 Desde un espresso clásico hasta bebidas de autor, opciones dulces y saladas, 
                                 siempre hay algo especial para vos. 🍰☕
                             </p>
-                            <button className="btn btn-warning btn-lg animated-btn w-100 w-md-auto" onClick={onClick}>
+                            <Link to="/carta" className="btn btn-warning btn-lg animated-btn w-100 w-md-auto" >
                                 Ver Menú
-                            </button>
+                            </Link>
                         </div>
 
                     </div>
