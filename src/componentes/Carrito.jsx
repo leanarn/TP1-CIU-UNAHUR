@@ -1,4 +1,4 @@
-import '../css/Carrito.css'
+import '../css/Carrito.module.css'
 
 export default function Carrito({ productosDelCarrito, aumentar, disminuir, cerrarCarrito, onConfirmar }) {
     const total = productosDelCarrito.reduce(
