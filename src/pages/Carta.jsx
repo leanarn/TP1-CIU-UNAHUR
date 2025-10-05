@@ -2,7 +2,6 @@ import ProductCard from "../componentes/ProductCard";
 import Navbar from '../componentes/Navbar';
 import { useState, useEffect } from 'react';
 import Carrito from '../componentes/Carrito';
-import Styles from '../css/Carta.module.css';
 
 export default function Carta() {
 
@@ -10,7 +9,7 @@ export default function Carta() {
     const [productosDelCarrito, setProductosDelCarrito] = useState([]);
     const [manejarCarrito, setManejarCarrito] = useState(null); // Recibe las ordenes para el carrito como se hace en la clase
     const [productoAgregado, setProductoAgregado] = useState('');
-    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null); // 👈 NUEVO
+    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
     const productos = [
         {
@@ -167,10 +166,10 @@ export default function Carta() {
             <Navbar verCarrito={() => setMostrarCarrito(!mostrarCarrito)} />
 
             {/*Dropdown Categorías */}
-            <div className="container mt-3">
-                <div className="dropdown">
+            <div className="container mt-3 d-flex">
+                <div className="dropdown ms-auto">
                     <button 
-                        className="btn btn-secondary dropdown-toggle" 
+                        className="btn btn-secondary dropdown-toggle bg-transparent text-muted border-0" 
                         type="button" 
                         id="dropdownMenuButton" 
                         data-bs-toggle="dropdown" 
@@ -197,7 +196,7 @@ export default function Carta() {
 
             {/*Productos filtrados */}
             <div className="container text-center">
-                <div className={`row row-cols-auto mt-3 d-flex ${Styles.productos_filtrados}`}>
+                <div className="row row-cols-auto mt-3 d-flex justify-content-center">
                     {productosFiltrados.map((producto, i) => (
                         <div className="col mb-4" key={i}>
                             <ProductCard
