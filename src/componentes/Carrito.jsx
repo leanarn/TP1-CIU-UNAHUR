@@ -30,9 +30,9 @@ export default function Carrito({ productosDelCarrito, aumentar, disminuir, cerr
                             <div className="alert alert-info text-center">
                                 El carrito está vacío.
                             </div>
-                        )
+                        ) // Si está vacío muestra ese mensaje
                         :
-                        (
+                        ( // Si no está vacío muestra los productos
                             <div className="row justify-content-center">
                                 <div className="col-md-12">
                                     <ul className="list-group mb-4">
