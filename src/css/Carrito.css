@@ -1,53 +1,182 @@
-/* Estilo para el fondo semi-transparente del modal */
+/* Fondo oscuro detrás del modal */
 .carrito-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #00000080; 
-    z-index: 100;
-}
-
-/* Estilo para el contenedor principal del carrito */
-.carrito-modal {
-    width: 60%;
-    min-width: 350px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
-
-    background-color: #fff; 
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
 }
 
-/* Lo de arriba no me está funcionando, será por bootstrap? */ 
-
-
-/* Estilo para la imagen del producto dentro del carrito */
-.carrito-imagen-producto {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-right: 15px;
+/* Modal del carrito */
+.carrito-modal {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease;
 }
 
-/* Estilo para el título del carrito*/
+/* Animación de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🔳 Encabezado */
+.carrito-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
 .carrito-titulo {
-    color: #6F4E37 !important; /* Important para ignorar el bootstrap */
+    color: #6F4E37;
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin: 0;
 }
 
-/* Estilo para el botón de confirmar, usando el tono Caramelo */
+/*Lista de productos */
+.carrito-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+/* Cada producto en grid */
+.carrito-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto 90px;
+    align-items: center;
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 10px 15px;
+    gap: 12px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.carrito-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Imagen */
+.carrito-imagen {
+    width: 55px;
+    height: 55px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Nombre */
+.carrito-nombre {
+    color: #333;
+    font-size: 1rem;
+}
+
+/* Controles de cantidad */
+.carrito-controles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.carrito-cantidad {
+    background-color: #eee;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* Subtotal */
+.carrito-precio {
+    text-align: right;
+    font-weight: 600;
+    color: #444;
+}
+
+/* Total final */
+.carrito-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #ddd;
+    padding-top: 15px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Botón confirmar pedido */
 .btn-confirmar-pedido {
     background-color: #C88141;
-    border-color: #C88141;
+    border: none;
+    color: white;
+    padding: 14px;
+    font-size: 1rem;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    width: 100%;
 }
 
 .btn-confirmar-pedido:hover {
     background-color: #A66835;
-    border-color: #A66835;
 }
 
+/* Scroll efecto */
+.carrito-modal::-webkit-scrollbar {
+    width: 8px;
+}
+.carrito-modal::-webkit-scrollbar-thumb {
+    background-color: #c4c4c4;
+    border-radius: 10px;
+}
+
+/*Responsive */
+@media (max-width: 768px) {
+    .carrito-modal {
+        max-width: 90%;
+        padding: 20px;
+    }
+
+    .carrito-item {
+        grid-template-columns: 55px 1fr;
+        grid-template-rows: auto auto;
+        grid-row-gap: 8px;
+        text-align: center;
+    }
+
+    .carrito-nombre {
+        justify-self: center;
+    }
+
+    .carrito-controles {
+        grid-column: span 2;
+        justify-content: center;
+    }
+
+    .carrito-precio {
+        grid-column: span 2;
+        text-align: center;
+    }
+
+    .carrito-titulo {
+        font-size: 1.4rem;
+        text-align: center;
+        width: 100%;
+    }
+}

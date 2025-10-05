@@ -5,7 +5,7 @@ import Navbar from '../componentes/Navbar';
 import { useState, useEffect } from 'react';
 import Carrito from '../componentes/Carrito';
 import '../css/Carta.css';
-
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 export default function Carta() {
 
@@ -13,65 +13,73 @@ export default function Carta() {
     const [productosDelCarrito, setProductosDelCarrito] = useState([]);
     const [manejarCarrito, setManejarCarrito] = useState(null); // Recibe las ordenes para el carrito como se hace en la clase
     const [productoAgregado, setProductoAgregado] = useState('');
+    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null); // 👈 NUEVO
 
     const productos = [
         {
             nombre: 'Café Espresso',
-            categoria: 'bebidas',
+            categoria: 'calientes',
             descripcion: 'Un café intenso y aromático en taza pequeña.',
             imagen: 'cafe_expresso.png',
             precio: 800
         },
         {
             nombre: 'Capuccino',
-            categoria: 'bebidas',
+            categoria: 'calientes',
             descripcion: 'Café con leche espumosa y un toque de cacao.',
             imagen: 'capuchino.png',
             precio: 1200
         },
         {
             nombre: 'Latte',
-            categoria: 'bebidas',
+            categoria: 'calientes',
             descripcion: 'Café espresso con abundante leche vaporizada.',
             imagen: 'latte.png',
             precio: 1100
         },
         {
             nombre: 'Té Verde',
-            categoria: 'bebidas',
+            categoria: 'frios',
             descripcion: 'Infusión ligera, refrescante y antioxidante.',
             imagen: 'te_verde.png',
             precio: 700
         },
         {
             nombre: 'Medialunas',
-            categoria: 'panificados',
+            categoria: 'dulce',
             descripcion: 'Clásico argentino, perfecto para acompañar el café.',
             imagen: 'medialunas.png',
             precio: 300
         },
         {
             nombre: 'Tostado de Jamón y Queso',
-            categoria: 'panificados',
+            categoria: 'salado',
             descripcion: 'Pan de molde con jamón y queso derretido.',
             imagen: 'tostado_jyq.png',
             precio: 1500
         },
         {
             nombre: 'Brownie con Nuez',
-            categoria: 'pasteleria',
+            categoria: 'dulce',
             descripcion: 'Bizcocho de chocolate húmedo con nueces.',
             imagen: 'brownie_nuez.png',
             precio: 900
         },
         {
             nombre: 'Limonada',
-            categoria: 'bebidas',
+            categoria: 'frios',
             descripcion: 'Bebida refrescante con jugo de limón natural.',
             imagen: 'limonada.png',
             precio: 1000
         }
     ];
+    //Filtrar productos según categoría seleccionada
+    const productosFiltrados = categoriaSeleccionada
+        ? productos.filter(p => p.categoria === categoriaSeleccionada)
+        : productos;
+
+    //Dropdown de categorías
+    const categorias = ["frios", "calientes", "salado", "dulce"];
 
     useEffect(() => {
         if (!manejarCarrito) return; // Si no hay ninguna orden, no hace nada.
@@ -156,14 +164,44 @@ export default function Carta() {
         setProductosDelCarrito([]);
         setMostrarCarrito(false);
     };
-
-    return (
+////////
+return (
         <div>
             <Navbar verCarrito={() => setMostrarCarrito(!mostrarCarrito)} />
+
+            {/* 🔹 Dropdown Categorías */}
+            <div className="container mt-3">
+                <div className="dropdown">
+                    <button 
+                        className="btn btn-secondary dropdown-toggle" 
+                        type="button" 
+                        id="dropdownMenuButton" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false"
+                    >
+                        Categorías {categoriaSeleccionada ? `: ${categoriaSeleccionada}` : ""}
+                    </button>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li>
+                            <button className="dropdown-item" onClick={() => setCategoriaSeleccionada(null)}>
+                                Todas
+                            </button>
+                        </li>
+                        {categorias.map((cat, i) => (
+                            <li key={i}>
+                                <button className="dropdown-item" onClick={() => setCategoriaSeleccionada(cat)}>
+                                    {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+
+            {/* 🔹 Productos filtrados */}
             <div className="container text-center">
                 <div className="row row-cols-auto" style={{ marginTop: '1rem', gap: '1rem', display: 'flex', justifyContent: 'center' }}>
-                    {productos.map((producto, i) => (
-
+                    {productosFiltrados.map((producto, i) => (
                         <div className="col mb-4" key={i}>
                             <ProductCard
                                 producto={producto}
