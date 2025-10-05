@@ -1,11 +1,8 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import ProductCard from "../componentes/ProductCard";
 import Navbar from '../componentes/Navbar';
 import { useState, useEffect } from 'react';
 import Carrito from '../componentes/Carrito';
-import '../css/Carta.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import Styles from '../css/Carta.module.css';
 
 export default function Carta() {
 
@@ -18,56 +15,56 @@ export default function Carta() {
     const productos = [
         {
             nombre: 'Café Espresso',
-            categoria: 'calientes',
+            categoria: 'Calientes',
             descripcion: 'Un café intenso y aromático en taza pequeña.',
             imagen: 'cafe_expresso.png',
             precio: 800
         },
         {
             nombre: 'Capuccino',
-            categoria: 'calientes',
+            categoria: 'Calientes',
             descripcion: 'Café con leche espumosa y un toque de cacao.',
             imagen: 'capuchino.png',
             precio: 1200
         },
         {
             nombre: 'Latte',
-            categoria: 'calientes',
+            categoria: 'Calientes',
             descripcion: 'Café espresso con abundante leche vaporizada.',
             imagen: 'latte.png',
             precio: 1100
         },
         {
             nombre: 'Té Verde',
-            categoria: 'frios',
+            categoria: 'Frios',
             descripcion: 'Infusión ligera, refrescante y antioxidante.',
             imagen: 'te_verde.png',
             precio: 700
         },
         {
             nombre: 'Medialunas',
-            categoria: 'dulce',
+            categoria: 'Dulce',
             descripcion: 'Clásico argentino, perfecto para acompañar el café.',
             imagen: 'medialunas.png',
             precio: 300
         },
         {
             nombre: 'Tostado de Jamón y Queso',
-            categoria: 'salado',
+            categoria: 'Salado',
             descripcion: 'Pan de molde con jamón y queso derretido.',
             imagen: 'tostado_jyq.png',
             precio: 1500
         },
         {
             nombre: 'Brownie con Nuez',
-            categoria: 'dulce',
+            categoria: 'Dulce',
             descripcion: 'Bizcocho de chocolate húmedo con nueces.',
             imagen: 'brownie_nuez.png',
             precio: 900
         },
         {
             nombre: 'Limonada',
-            categoria: 'frios',
+            categoria: 'Frios',
             descripcion: 'Bebida refrescante con jugo de limón natural.',
             imagen: 'limonada.png',
             precio: 1000
@@ -79,7 +76,7 @@ export default function Carta() {
         : productos;
 
     //Dropdown de categorías
-    const categorias = ["frios", "calientes", "salado", "dulce"];
+    const categorias = ["Frios", "Calientes", "Salado", "Dulce"];
 
     useEffect(() => {
         if (!manejarCarrito) return; // Si no hay ninguna orden, no hace nada.
@@ -164,12 +161,12 @@ export default function Carta() {
         setProductosDelCarrito([]);
         setMostrarCarrito(false);
     };
-////////
-return (
+
+    return (
         <div>
             <Navbar verCarrito={() => setMostrarCarrito(!mostrarCarrito)} />
 
-            {/* 🔹 Dropdown Categorías */}
+            {/*Dropdown Categorías */}
             <div className="container mt-3">
                 <div className="dropdown">
                     <button 
@@ -198,9 +195,9 @@ return (
                 </div>
             </div>
 
-            {/* 🔹 Productos filtrados */}
+            {/*Productos filtrados */}
             <div className="container text-center">
-                <div className="row row-cols-auto" style={{ marginTop: '1rem', gap: '1rem', display: 'flex', justifyContent: 'center' }}>
+                <div className={`row row-cols-auto mt-3 d-flex ${Styles.productos_filtrados}`}>
                     {productosFiltrados.map((producto, i) => (
                         <div className="col mb-4" key={i}>
                             <ProductCard
@@ -214,13 +211,13 @@ return (
             </div>
 
             {mostrarCarrito && (
-                                <Carrito
-                                    productosDelCarrito={productosDelCarrito}
-                                    aumentar={aumentarCantidad}
-                                    disminuir={disminuirCantidad}
-                                    cerrarCarrito={() => setMostrarCarrito(false)}
-                                    onConfirmar={confirmarPedido}
-                                />
+                <Carrito
+                    productosDelCarrito={productosDelCarrito}
+                    aumentar={aumentarCantidad}
+                    disminuir={disminuirCantidad}
+                    cerrarCarrito={() => setMostrarCarrito(false)}
+                    onConfirmar={confirmarPedido}
+                />
             )}
         </div>
     );
