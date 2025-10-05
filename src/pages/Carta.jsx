@@ -1,13 +1,19 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import ProductCard from "../componentes/ProductCard";
 import Navbar from '../componentes/Navbar';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Carrito from '../componentes/Carrito';
+import '../css/Carta.css';
 
-export default function Carta({alAgregar}){
+
+export default function Carta() {
+
     const [mostrarCarrito, setMostrarCarrito] = useState(false);
     const [productosDelCarrito, setProductosDelCarrito] = useState([]);
+    const [manejarCarrito, setManejarCarrito] = useState(null); // Recibe las ordenes para el carrito como se hace en la clase
+    const [productoAgregado, setProductoAgregado] = useState('');
+
     const productos = [
         {
             nombre: 'Café Espresso',
@@ -67,27 +73,117 @@ export default function Carta({alAgregar}){
         }
     ];
 
-    useEffect(() =>{
-        console.log(productosDelCarrito)
-    }, [productosDelCarrito])
+    useEffect(() => {
+        if (!manejarCarrito) return; // Si no hay ninguna orden, no hace nada.
 
-    return(
+        const { orden, producto, nombreProducto } = manejarCarrito;
+        
+        // Buscamos si el producto ya existe
+        const productoExistente = productosDelCarrito.find(
+            item => item.nombre === (producto?.nombre || nombreProducto)
+        );
+
+        // agrega un producto nuevo o aumentar en uno si existente desde la carta.
+        if (orden === 'agregar') {
+            if (productoExistente) {
+                // Quería usar la const de aumentarCantidad, pero el null la reescribe, hay que usarlo así
+                const carritoActualizado = productosDelCarrito.map(item => item.nombre === producto.nombre
+                    ? { ...item, cantidad: item.cantidad + 1 }
+                        : 
+                            item
+                );
+                setProductosDelCarrito(carritoActualizado);
+            } 
+            
+                else {
+                const nuevoCarrito = [...productosDelCarrito, { ...producto, cantidad: 1 }];
+                setProductosDelCarrito(nuevoCarrito);
+            }
+        }
+
+        if (orden === 'aumentar') {
+            const carritoActualizado = productosDelCarrito.map(item =>
+                item.nombre === nombreProducto ? { ...item, cantidad: item.cantidad + 1 } : item
+            );
+            setProductosDelCarrito(carritoActualizado);
+        }
+
+        // Disminuir cantidad
+        if (orden === 'disminuir') {
+            // Si la cantidad es mayor a 1 la reduce.
+            if (productoExistente && productoExistente.cantidad > 1) { // Si el producto existe y la cantidad es 1 o mas
+                const carritoActualizado = productosDelCarrito.map(item => item.nombre === nombreProducto ? 
+                    { ...item, cantidad: item.cantidad - 1 } 
+                        : 
+                            item
+                );
+                setProductosDelCarrito(carritoActualizado);
+            } 
+            else {
+                // Si es 1 lo borra
+                const carritoFiltrado = productosDelCarrito.filter(item => item.nombre !== nombreProducto);
+                setProductosDelCarrito(carritoFiltrado);
+            }
+        }
+        // NULL para que no se ejecute varias veces NO BORRAR O SE SUMA SIN PARAR
+        setManejarCarrito(null);
+    }, [manejarCarrito, productosDelCarrito]);
+
+
+    // CONSTS para clarificar el código
+    const agregarAlCarrito = (producto) => {
+        setManejarCarrito({ orden: 'agregar', producto: producto });
+        setProductoAgregado(producto.nombre);
+        
+        
+        setTimeout(() => { // Efecto de producto agregado con un tiempo de 500, probé con 1000 y 2000 pero era muy largo
+            setProductoAgregado('');
+        }, 500); 
+    };
+
+    const aumentarCantidad = (nombreProducto) => {
+        setManejarCarrito({ orden: 'aumentar', nombreProducto: nombreProducto });
+    };
+
+    const disminuirCantidad = (nombreProducto) => {
+        setManejarCarrito({ orden: 'disminuir', nombreProducto: nombreProducto });
+    };
+
+    const confirmarPedido = () => {
+        const total = productosDelCarrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+        alert(`Pedido Confirmado por un total de $${total.toFixed(2)}. ¡Gracias por tu compra!`);
+        
+        setProductosDelCarrito([]);
+        setMostrarCarrito(false);
+    };
+
+    return (
         <div>
             <Navbar verCarrito={() => setMostrarCarrito(!mostrarCarrito)} />
             <div className="container text-center">
                 <div className="row row-cols-auto" style={{ marginTop: '1rem', gap: '1rem', display: 'flex', justifyContent: 'center' }}>
-                    {
-                        productos.map(((producto, i) => (
-                            <div className="col" key={i}>
-                                <ProductCard producto={producto} alAgregar={() => setProductosDelCarrito([...productosDelCarrito, producto])}/>
-                            </div>
-                        )))
-                    }
+                    {productos.map((producto, i) => (
+
+                        <div className="col mb-4" key={i}>
+                            <ProductCard
+                                producto={producto}
+                                alAgregar={() => agregarAlCarrito(producto)}
+                                fueAgregado={productoAgregado === producto.nombre}
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
-            {
-                mostrarCarrito && <Carrito productosDelCarrito={productosDelCarrito} />
-            }
+
+            {mostrarCarrito && (
+                                <Carrito
+                                    productosDelCarrito={productosDelCarrito}
+                                    aumentar={aumentarCantidad}
+                                    disminuir={disminuirCantidad}
+                                    cerrarCarrito={() => setMostrarCarrito(false)}
+                                    onConfirmar={confirmarPedido}
+                                />
+            )}
         </div>
-    )
+    );
 }

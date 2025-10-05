@@ -1,0 +1,53 @@
+/* Estilo para el fondo semi-transparente del modal */
+.carrito-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000080; 
+    z-index: 100;
+}
+
+/* Estilo para el contenedor principal del carrito */
+.carrito-modal {
+    width: 60%;
+    min-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    padding: 20px;
+
+    background-color: #fff; 
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+}
+
+/* Lo de arriba no me está funcionando, será por bootstrap? */ 
+
+
+/* Estilo para la imagen del producto dentro del carrito */
+.carrito-imagen-producto {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+/* Estilo para el título del carrito*/
+.carrito-titulo {
+    color: #6F4E37 !important; /* Important para ignorar el bootstrap */
+}
+
+/* Estilo para el botón de confirmar, usando el tono Caramelo */
+.btn-confirmar-pedido {
+    background-color: #C88141;
+    border-color: #C88141;
+}
+
+.btn-confirmar-pedido:hover {
+    background-color: #A66835;
+    border-color: #A66835;
+}
+

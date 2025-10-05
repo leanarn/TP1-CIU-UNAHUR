@@ -1,14 +1,22 @@
-export default function ProductCard({ producto, alAgregar }){
+import '../css/ProductCard.css';
+
+export default function ProductCard({ producto, alAgregar, fueAgregado }){
 
     return(
         <div className="card" style={{ width: '18rem' }}>
-            <div style={{ height: '150px', overflow: 'hidden' }}>
-                <img src={producto.imagen} className="card-img-top" alt={producto.nombre} />
+            <div className="card-img-container">
+                <img src={producto.imagen} className="card-img-top-hover" alt={producto.nombre} />
             </div>
             <div className="card-body">
                 <p className="card-text" style={{ textAlign: 'left' }}> {producto.descripcion} </p>
                 <p style={{ textAlign: 'left' }}>Precio: ${producto.precio}</p>
-                <button className="btn btn-primary" onClick ={alAgregar}>Agregar al carrito</button>
+                <button 
+                    className={fueAgregado ? "btn btn-success" : "btn btn-primary"} 
+                    onClick={alAgregar}
+                    disabled={fueAgregado}
+                >
+                    {fueAgregado ? "Agregado! ✅" : "Agregar al carrito"}
+                </button>
             </div>
         </div>
     )
