@@ -1,4 +1,4 @@
-import '../css/Carrito.module.css'
+import Styles from '../css/Carrito.module.css'
 
 export default function Carrito({ productosDelCarrito, aumentar, disminuir, cerrarCarrito, onConfirmar }) {
     const total = productosDelCarrito.reduce(
@@ -7,13 +7,13 @@ export default function Carrito({ productosDelCarrito, aumentar, disminuir, cerr
     );
 
     return (
-        <div className="carrito-overlay" onClick={cerrarCarrito}>
+        <div className={Styles.carrito_overlay} onClick={cerrarCarrito}>
             <div
-                className="carrito-modal"
+                className={Styles.carrito_modal}
                 onClick={(e) => e.stopPropagation()}
             >
-                <div className="carrito-header">
-                    <h1 className="carrito-titulo">Mi Pedido ☕</h1>
+                <div className={Styles.carrito_header}>
+                    <h1 className={Styles.carrito_titulo}>Mi Pedido ☕</h1>
                     <button className="btn-close" onClick={cerrarCarrito}></button>
                 </div>
 
@@ -23,23 +23,23 @@ export default function Carrito({ productosDelCarrito, aumentar, disminuir, cerr
                     </div>
                 ) : (
                     <>
-                        <div className="carrito-lista">
+                        <div className={Styles.carrito_lista}>
                             {productosDelCarrito.map((item, index) => (
-                                <div key={index} className="carrito-item">
+                                <div key={index} className={Styles.carrito_item}>
                                     {/* Imagen */}
                                     <img
                                         src={item.imagen}
                                         alt={item.nombre}
-                                        className="carrito-imagen"
+                                        className={Styles.carrito_imagen}
                                     />
 
                                     {/* Nombre */}
-                                    <span className="carrito-nombre fw-bold">
+                                    <span className={`${Styles.carrito_nombre} fw-bold`}>
                                         {item.nombre}
                                     </span>
 
                                     {/* Controles */}
-                                    <div className="carrito-controles">
+                                    <div className={Styles.carrito_controles}>
                                         <button
                                             className="btn btn-sm btn-outline-danger"
                                             onClick={() => disminuir(item.nombre)}
@@ -51,7 +51,7 @@ export default function Carrito({ productosDelCarrito, aumentar, disminuir, cerr
                                             )}
                                         </button>
 
-                                        <span className="carrito-cantidad">
+                                        <span className={Styles.carrito_cantidad}>
                                             {item.cantidad}
                                         </span>
 
@@ -64,20 +64,20 @@ export default function Carrito({ productosDelCarrito, aumentar, disminuir, cerr
                                     </div>
 
                                     {/* Subtotal */}
-                                    <span className="carrito-precio">
+                                    <span className={Styles.carrito_precio}>
                                         ${(item.precio * item.cantidad).toFixed(2)}
                                     </span>
                                 </div>
                             ))}
                         </div>
 
-                        <div className="carrito-total">
+                        <div className={Styles.carrito_total}>
                             <span>TOTAL:</span>
                             <span>${total.toFixed(2)}</span>
                         </div>
 
                         <button
-                            className="btn btn-confirmar-pedido"
+                            className={`btn ${Styles.btn_confirmar_pedido}`}
                             onClick={onConfirmar}
                         >
                             Confirmar Pedido

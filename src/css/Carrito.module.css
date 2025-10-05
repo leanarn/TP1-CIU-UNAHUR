@@ -1,5 +1,5 @@
 /* Fondo oscuro detrás del modal */
-.carrito-overlay {
+.carrito_overlay {
     position: fixed;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.5);
@@ -11,7 +11,7 @@
 }
 
 /* Modal del carrito */
-.carrito-modal {
+.carrito_modal {
     background-color: #fff;
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
@@ -32,14 +32,14 @@
 }
 
 /* 🔳 Encabezado */
-.carrito-header {
+.carrito_header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
 }
 
-.carrito-titulo {
+.carrito_titulo {
     color: #6F4E37;
     font-size: 1.7rem;
     font-weight: bold;
@@ -47,7 +47,7 @@
 }
 
 /*Lista de productos */
-.carrito-lista {
+.carrito_lista {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -55,7 +55,7 @@
 }
 
 /* Cada producto en grid */
-.carrito-item {
+.carrito_item {
     display: grid;
     grid-template-columns: 60px 1fr auto 90px;
     align-items: center;
@@ -67,13 +67,13 @@
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.carrito-item:hover {
+.carrito_item:hover {
     transform: translateY(-2px);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
 }
 
 /* Imagen */
-.carrito-imagen {
+.carrito_imagen {
     width: 55px;
     height: 55px;
     border-radius: 8px;
@@ -81,20 +81,20 @@
 }
 
 /* Nombre */
-.carrito-nombre {
+.carrito_nombre {
     color: #333;
     font-size: 1rem;
 }
 
 /* Controles de cantidad */
-.carrito-controles {
+.carrito_controles {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
 }
 
-.carrito-cantidad {
+.carrito_cantidad {
     background-color: #eee;
     padding: 4px 10px;
     border-radius: 8px;
@@ -102,14 +102,14 @@
 }
 
 /* Subtotal */
-.carrito-precio {
+.carrito_precio {
     text-align: right;
     font-weight: 600;
     color: #444;
 }
 
 /* Total final */
-.carrito-total {
+.carrito_total {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -120,7 +120,7 @@
 }
 
 /* Botón confirmar pedido */
-.btn-confirmar-pedido {
+.btn_confirmar_pedido {
     background-color: #C88141;
     border: none;
     color: white;
@@ -133,48 +133,48 @@
     width: 100%;
 }
 
-.btn-confirmar-pedido:hover {
+.btn_confirmar_pedido:hover {
     background-color: #A66835;
 }
 
 /* Scroll efecto */
-.carrito-modal::-webkit-scrollbar {
+.carrito_modal::-webkit-scrollbar {
     width: 8px;
 }
-.carrito-modal::-webkit-scrollbar-thumb {
+.carrito_modal::-webkit-scrollbar-thumb {
     background-color: #c4c4c4;
     border-radius: 10px;
 }
 
 /*Responsive */
 @media (max-width: 768px) {
-    .carrito-modal {
+    .carrito_modal {
         max-width: 90%;
         padding: 20px;
     }
 
-    .carrito-item {
+    .carrito_item {
         grid-template-columns: 55px 1fr;
         grid-template-rows: auto auto;
         grid-row-gap: 8px;
         text-align: center;
     }
 
-    .carrito-nombre {
+    .carrito_nombre {
         justify-self: center;
     }
 
-    .carrito-controles {
+    .carrito_controles {
         grid-column: span 2;
         justify-content: center;
     }
 
-    .carrito-precio {
+    .carrito_precio {
         grid-column: span 2;
         text-align: center;
     }
 
-    .carrito-titulo {
+    .carrito_titulo {
         font-size: 1.4rem;
         text-align: center;
         width: 100%;
