@@ -1,11 +1,7 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import ProductCard from "../componentes/ProductCard";
 import Navbar from '../componentes/Navbar';
 import { useState, useEffect } from 'react';
 import Carrito from '../componentes/Carrito';
-import '../css/Carta.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 export default function Carta() {
 
@@ -13,64 +9,61 @@ export default function Carta() {
     const [productosDelCarrito, setProductosDelCarrito] = useState([]);
     const [manejarCarrito, setManejarCarrito] = useState(null); // Recibe las ordenes para el carrito como se hace en la clase
     const [productoAgregado, setProductoAgregado] = useState('');
-    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null); 
-
-
-
+    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
     const productos = [
         {
             nombre: 'Café Espresso',
-            categoria: 'calientes',
+            categoria: 'Calientes',
             descripcion: 'Un café intenso y aromático en taza pequeña.',
             imagen: 'cafe_expresso.png',
             precio: 800
         },
         {
             nombre: 'Capuccino',
-            categoria: 'calientes',
+            categoria: 'Calientes',
             descripcion: 'Café con leche espumosa y un toque de cacao.',
             imagen: 'capuchino.png',
             precio: 1200
         },
         {
             nombre: 'Latte',
-            categoria: 'calientes',
+            categoria: 'Calientes',
             descripcion: 'Café espresso con abundante leche vaporizada.',
             imagen: 'latte.png',
             precio: 1100
         },
         {
             nombre: 'Té Verde',
-            categoria: 'frios',
+            categoria: 'Frios',
             descripcion: 'Infusión ligera, refrescante y antioxidante.',
             imagen: 'te_verde.png',
             precio: 700
         },
         {
             nombre: 'Medialunas',
-            categoria: 'dulce',
+            categoria: 'Dulce',
             descripcion: 'Clásico argentino, perfecto para acompañar el café.',
             imagen: 'medialunas.png',
             precio: 300
         },
         {
             nombre: 'Tostado de Jamón y Queso',
-            categoria: 'salado',
+            categoria: 'Salado',
             descripcion: 'Pan de molde con jamón y queso derretido.',
             imagen: 'tostado_jyq.png',
             precio: 1500
         },
         {
             nombre: 'Brownie con Nuez',
-            categoria: 'dulce',
+            categoria: 'Dulce',
             descripcion: 'Bizcocho de chocolate húmedo con nueces.',
             imagen: 'brownie_nuez.png',
             precio: 900
         },
         {
             nombre: 'Limonada',
-            categoria: 'frios',
+            categoria: 'Frios',
             descripcion: 'Bebida refrescante con jugo de limón natural.',
             imagen: 'limonada.png',
             precio: 1000
@@ -82,7 +75,8 @@ export default function Carta() {
         : productos;
 
     //Dropdown de categorías
-    const categorias = ["frios", "calientes", "salado", "dulce"];
+    const categorias = ["Frios", "Calientes", "Salado", "Dulce"];
+
 
 
 
