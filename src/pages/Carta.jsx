@@ -191,10 +191,10 @@ return (
             <Navbar verCarrito={() => setMostrarCarrito(!mostrarCarrito)} />
 
             {/* 🔹 Dropdown Categorías */}
-            <div className="container mt-3">
-                <div className="dropdown">
+            <div className="container mt-3 d-flex">
+                <div className="dropdown ms-auto">
                     <button 
-                        className="btn btn-secondary dropdown-toggle" 
+                        className="btn btn-secondary dropdown-toggle bg-transparent text-muted border-0" 
                         type="button" 
                         id="dropdownMenuButton" 
                         data-bs-toggle="dropdown" 
