@@ -6,7 +6,23 @@ import Carrito from '../componentes/Carrito';
 export default function Carta() {
 
     const [mostrarCarrito, setMostrarCarrito] = useState(false);
-    const [productosDelCarrito, setProductosDelCarrito] = useState([]);
+
+    // localStorage
+    const [productosDelCarrito, setProductosDelCarrito] = useState(() => {
+    const guardado = localStorage.getItem('carritoApp');
+    if (guardado) {
+        try {
+            return JSON.parse(guardado);
+        } catch (e) {
+            console.error("Error al cargar el carrito de localStorage:", e);
+            return []; 
+        }
+    }
+    return [];
+});
+
+
+
     const [manejarCarrito, setManejarCarrito] = useState(null); // Recibe las ordenes para el carrito como se hace en la clase
     const [productoAgregado, setProductoAgregado] = useState('');
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
@@ -80,7 +96,7 @@ export default function Carta() {
 
 
 
-    // CONSTS para clarificar el código
+ // Disparadores de eventos
     const agregarAlCarrito = (producto) => {
         setManejarCarrito({ orden: 'agregar', producto: producto });
         setProductoAgregado(producto.nombre);
@@ -157,6 +173,16 @@ useEffect(() => {
     
 
 }, [manejarCarrito]);
+
+useEffect(() => {
+    
+    if (productosDelCarrito.length > 0) { // Convierte el array a JSON de un string y lo guarda con la clave 'carritoApp'
+        localStorage.setItem('carritoApp', JSON.stringify(productosDelCarrito));
+    } else {
+        // Cuando el carrito queda vacío (ej. después de confirmar), borra el dato
+        localStorage.removeItem('carritoApp');
+    }
+}, [productosDelCarrito]); // Se ejecuta cada vez que el array cambia
 
 
 ////////

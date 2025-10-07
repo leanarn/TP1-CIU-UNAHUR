@@ -1,0 +1,17 @@
+/* Estilo para la carta */
+.carta-container {
+
+    background-color: #F4EBDC; 
+    min-height: 100vh; 
+    padding-bottom: 30px; 
+}
+
+/* Estilo para productos en grid no funcionó */
+.productos-grid {
+    margin-top: 1rem;
+    gap: 1.5rem; 
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+    padding: 20px 0;
+}
