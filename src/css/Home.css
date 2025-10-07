@@ -1,0 +1,96 @@
+.hero-section {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  width: 100%;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Logo */
+.logo {
+  max-width: 80px;
+  height: auto;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.logo:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+}
+
+/* Título */
+.cafeteria-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ffc107, #ff9800, #ff5722);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+  letter-spacing: 1px;
+}
+
+/* Botón animado */
+.animated-btn {
+  transition: all 0.3s ease;
+  transform: scale(1);
+  font-weight: bold;
+  box-shadow: 0px 4px 12px rgba(255, 193, 7, 0.5);
+}
+.animated-btn:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0px 6px 18px rgba(255, 193, 7, 0.8);
+}
+
+/* Ajustes responsive */
+@media (max-width: 992px) {
+  .cafeteria-title {
+    font-size: 2rem;
+  }
+
+  .overlay {
+    padding: 30px 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: auto;
+  }
+
+  .cafeteria-title {
+    font-size: 1.8rem;
+  }
+
+  .logo {
+    max-width: 60px;
+  }
+
+  .overlay {
+    text-align: center;
+    padding-bottom: 60px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .col-md-4 {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+  }
+
+  .animated-btn {
+    width: 100%;
+  }
+}
