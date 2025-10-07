@@ -13,7 +13,10 @@ export default function Carta() {
     const [productosDelCarrito, setProductosDelCarrito] = useState([]);
     const [manejarCarrito, setManejarCarrito] = useState(null); // Recibe las ordenes para el carrito como se hace en la clase
     const [productoAgregado, setProductoAgregado] = useState('');
-    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null); // 👈 NUEVO
+    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null); 
+
+
+
 
     const productos = [
         {
@@ -81,61 +84,6 @@ export default function Carta() {
     //Dropdown de categorías
     const categorias = ["frios", "calientes", "salado", "dulce"];
 
-    useEffect(() => {
-        if (!manejarCarrito) return; // Si no hay ninguna orden, no hace nada.
-
-        const { orden, producto, nombreProducto } = manejarCarrito;
-        
-        // Buscamos si el producto ya existe
-        const productoExistente = productosDelCarrito.find(
-            item => item.nombre === (producto?.nombre || nombreProducto)
-        );
-
-        // agrega un producto nuevo o aumentar en uno si existente desde la carta.
-        if (orden === 'agregar') {
-            if (productoExistente) {
-                // Quería usar la const de aumentarCantidad, pero el null la reescribe, hay que usarlo así
-                const carritoActualizado = productosDelCarrito.map(item => item.nombre === producto.nombre
-                    ? { ...item, cantidad: item.cantidad + 1 }
-                        : 
-                            item
-                );
-                setProductosDelCarrito(carritoActualizado);
-            } 
-            
-                else {
-                const nuevoCarrito = [...productosDelCarrito, { ...producto, cantidad: 1 }];
-                setProductosDelCarrito(nuevoCarrito);
-            }
-        }
-
-        if (orden === 'aumentar') {
-            const carritoActualizado = productosDelCarrito.map(item =>
-                item.nombre === nombreProducto ? { ...item, cantidad: item.cantidad + 1 } : item
-            );
-            setProductosDelCarrito(carritoActualizado);
-        }
-
-        // Disminuir cantidad
-        if (orden === 'disminuir') {
-            // Si la cantidad es mayor a 1 la reduce.
-            if (productoExistente && productoExistente.cantidad > 1) { // Si el producto existe y la cantidad es 1 o mas
-                const carritoActualizado = productosDelCarrito.map(item => item.nombre === nombreProducto ? 
-                    { ...item, cantidad: item.cantidad - 1 } 
-                        : 
-                            item
-                );
-                setProductosDelCarrito(carritoActualizado);
-            } 
-            else {
-                // Si es 1 lo borra
-                const carritoFiltrado = productosDelCarrito.filter(item => item.nombre !== nombreProducto);
-                setProductosDelCarrito(carritoFiltrado);
-            }
-        }
-        // NULL para que no se ejecute varias veces NO BORRAR O SE SUMA SIN PARAR
-        setManejarCarrito(null);
-    }, [manejarCarrito, productosDelCarrito]);
 
 
     // CONSTS para clarificar el código
@@ -164,6 +112,59 @@ export default function Carta() {
         setProductosDelCarrito([]);
         setMostrarCarrito(false);
     };
+
+useEffect(() => {
+    if (!manejarCarrito) return;
+
+    const { orden, producto, nombreProducto } = manejarCarrito;
+
+    
+    setProductosDelCarrito(prevCarrito => { // setter para acceder al estado previo del carrito (prevCarrito)
+
+        const nombreItem = producto?.nombre || nombreProducto;
+        const productoExistente = prevCarrito.find(item => item.nombre === nombreItem);
+
+
+
+        if (orden === 'agregar') {
+            if (productoExistente) {
+                
+                return prevCarrito.map(item =>  item.nombre === nombreItem ? { ...item, cantidad: item.cantidad + 1 } : item);  // Si ya existe en el carrito, aumenta su cantidad en 1
+            } 
+            else {
+                return [...prevCarrito, { ...producto, cantidad: 1 }]; // Si no existe lo agrega 
+            }
+        } 
+        
+        else if (orden === 'aumentar') {
+            
+            return prevCarrito.map(item => item.nombre === nombreProducto ? { ...item, cantidad: item.cantidad + 1 } : item // Aumentar desde el Carrito
+            );
+        } 
+        
+        else if (orden === 'disminuir') {
+            if (productoExistente && productoExistente.cantidad > 1) {
+                
+                return prevCarrito.map(item =>  item.nombre === nombreProducto ? { ...item, cantidad: item.cantidad - 1 } : item // Restar 1 si la cantidad es > 1
+                );
+            } 
+            else if (productoExistente && productoExistente.cantidad === 1) { // Filtrar si la cantidad es 1, no se usa delete por principio de react sobre no modificar los arrays
+                
+                return prevCarrito.filter(item => item.nombre !== nombreProducto);
+            }
+        }
+
+        // Si la orden no se procesó o no aplica, devuelve el carrito sin cambios
+        return prevCarrito; 
+    });
+
+    // NO BORRAR ESTO O EMPIEZA A SUMAR SIN PARAR
+    setManejarCarrito(null);
+    
+
+}, [manejarCarrito]);
+
+
 ////////
 return (
         <div>
