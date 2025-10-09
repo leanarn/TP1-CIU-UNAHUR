@@ -120,3 +120,8 @@ body {
   background-color: #A66835 !important;
   transform: translateY(-1px);
 }
+/*Ajuste de texto naranja en modo oscuro */
+.dark-theme h2,
+.dark-theme h3 {
+  color: #ffffff !important;
+}
