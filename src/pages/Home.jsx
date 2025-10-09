@@ -12,9 +12,10 @@ export default function Home() {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        minHeight: "100vh"
       }}
     >
-      <div className="overlay d-flex flex-column justify-content-center align-items-center text-white text-center">
+      <div className="overlay d-flex flex-column justify-content-center align-items-center text-white text-center min-vh-100">
         
         {/* Encabezado con logo y título */}
         <div className="d-flex align-items-center justify-content-center mb-4 gap-3 flex-wrap">
