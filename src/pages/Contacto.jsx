@@ -2,12 +2,11 @@ import Navbar from "../componentes/Navbar";
 
 export default function Contacto(){
     const manejarEnvio = (e) =>{
-        e.preventDefault();
         alert("Gracias por tu mensaje!")
     }
     return(
         <div>
-            <Navbar/>
+            <Navbar desactivado={true}/>
             <div className="container"> 
                 <div className="row"> 
                     <div className="col-sm p-4"> 
