@@ -6,7 +6,23 @@ import Carrito from '../componentes/Carrito';
 export default function Carta() {
 
     const [mostrarCarrito, setMostrarCarrito] = useState(false);
-    const [productosDelCarrito, setProductosDelCarrito] = useState([]);
+
+    // localStorage
+    const [productosDelCarrito, setProductosDelCarrito] = useState(() => {
+    const guardado = localStorage.getItem('carritoApp');
+    if (guardado) {
+        try {
+            return JSON.parse(guardado);
+        } catch (e) {
+            console.error("Error al cargar el carrito de localStorage:", e);
+            return []; 
+        }
+    }
+    return [];
+});
+
+
+
     const [manejarCarrito, setManejarCarrito] = useState(null); // Recibe las ordenes para el carrito como se hace en la clase
     const [productoAgregado, setProductoAgregado] = useState('');
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
@@ -77,64 +93,10 @@ export default function Carta() {
     //Dropdown de categorías
     const categorias = ["Frios", "Calientes", "Salado", "Dulce"];
 
-    useEffect(() => {
-        if (!manejarCarrito) return; // Si no hay ninguna orden, no hace nada.
-
-        const { orden, producto, nombreProducto } = manejarCarrito;
-        
-        // Buscamos si el producto ya existe
-        const productoExistente = productosDelCarrito.find(
-            item => item.nombre === (producto?.nombre || nombreProducto)
-        );
-
-        // agrega un producto nuevo o aumentar en uno si existente desde la carta.
-        if (orden === 'agregar') {
-            if (productoExistente) {
-                // Quería usar la const de aumentarCantidad, pero el null la reescribe, hay que usarlo así
-                const carritoActualizado = productosDelCarrito.map(item => item.nombre === producto.nombre
-                    ? { ...item, cantidad: item.cantidad + 1 }
-                        : 
-                            item
-                );
-                setProductosDelCarrito(carritoActualizado);
-            } 
-            
-                else {
-                const nuevoCarrito = [...productosDelCarrito, { ...producto, cantidad: 1 }];
-                setProductosDelCarrito(nuevoCarrito);
-            }
-        }
-
-        if (orden === 'aumentar') {
-            const carritoActualizado = productosDelCarrito.map(item =>
-                item.nombre === nombreProducto ? { ...item, cantidad: item.cantidad + 1 } : item
-            );
-            setProductosDelCarrito(carritoActualizado);
-        }
-
-        // Disminuir cantidad
-        if (orden === 'disminuir') {
-            // Si la cantidad es mayor a 1 la reduce.
-            if (productoExistente && productoExistente.cantidad > 1) { // Si el producto existe y la cantidad es 1 o mas
-                const carritoActualizado = productosDelCarrito.map(item => item.nombre === nombreProducto ? 
-                    { ...item, cantidad: item.cantidad - 1 } 
-                        : 
-                            item
-                );
-                setProductosDelCarrito(carritoActualizado);
-            } 
-            else {
-                // Si es 1 lo borra
-                const carritoFiltrado = productosDelCarrito.filter(item => item.nombre !== nombreProducto);
-                setProductosDelCarrito(carritoFiltrado);
-            }
-        }
-        // NULL para que no se ejecute varias veces NO BORRAR O SE SUMA SIN PARAR
-        setManejarCarrito(null);
-    }, [manejarCarrito, productosDelCarrito]);
 
 
-    // CONSTS para clarificar el código
+
+ // Disparadores de eventos
     const agregarAlCarrito = (producto) => {
         setManejarCarrito({ orden: 'agregar', producto: producto });
         setProductoAgregado(producto.nombre);
@@ -161,11 +123,74 @@ export default function Carta() {
         setMostrarCarrito(false);
     };
 
-    return (
+useEffect(() => {
+    if (!manejarCarrito) return;
+
+    const { orden, producto, nombreProducto } = manejarCarrito;
+
+    
+    setProductosDelCarrito(prevCarrito => { // setter para acceder al estado previo del carrito (prevCarrito)
+
+        const nombreItem = producto?.nombre || nombreProducto;
+        const productoExistente = prevCarrito.find(item => item.nombre === nombreItem);
+
+
+
+        if (orden === 'agregar') {
+            if (productoExistente) {
+                
+                return prevCarrito.map(item =>  item.nombre === nombreItem ? { ...item, cantidad: item.cantidad + 1 } : item);  // Si ya existe en el carrito, aumenta su cantidad en 1
+            } 
+            else {
+                return [...prevCarrito, { ...producto, cantidad: 1 }]; // Si no existe lo agrega 
+            }
+        } 
+        
+        else if (orden === 'aumentar') {
+            
+            return prevCarrito.map(item => item.nombre === nombreProducto ? { ...item, cantidad: item.cantidad + 1 } : item // Aumentar desde el Carrito
+            );
+        } 
+        
+        else if (orden === 'disminuir') {
+            if (productoExistente && productoExistente.cantidad > 1) {
+                
+                return prevCarrito.map(item =>  item.nombre === nombreProducto ? { ...item, cantidad: item.cantidad - 1 } : item // Restar 1 si la cantidad es > 1
+                );
+            } 
+            else if (productoExistente && productoExistente.cantidad === 1) { // Filtrar si la cantidad es 1, no se usa delete por principio de react sobre no modificar los arrays
+                
+                return prevCarrito.filter(item => item.nombre !== nombreProducto);
+            }
+        }
+
+        // Si la orden no se procesó o no aplica, devuelve el carrito sin cambios
+        return prevCarrito; 
+    });
+
+    // NO BORRAR ESTO O EMPIEZA A SUMAR SIN PARAR
+    setManejarCarrito(null);
+    
+
+}, [manejarCarrito]);
+
+useEffect(() => {
+    
+    if (productosDelCarrito.length > 0) { // Convierte el array a JSON de un string y lo guarda con la clave 'carritoApp'
+        localStorage.setItem('carritoApp', JSON.stringify(productosDelCarrito));
+    } else {
+        // Cuando el carrito queda vacío (ej. después de confirmar), borra el dato
+        localStorage.removeItem('carritoApp');
+    }
+}, [productosDelCarrito]); // Se ejecuta cada vez que el array cambia
+
+
+////////
+return (
         <div>
             <Navbar verCarrito={() => setMostrarCarrito(!mostrarCarrito)} />
 
-            {/*Dropdown Categorías */}
+            {/* 🔹 Dropdown Categorías */}
             <div className="container mt-3 d-flex">
                 <div className="dropdown ms-auto">
                     <button 
@@ -194,9 +219,9 @@ export default function Carta() {
                 </div>
             </div>
 
-            {/*Productos filtrados */}
+            {/* 🔹 Productos filtrados */}
             <div className="container text-center">
-                <div className="row row-cols-auto mt-3 d-flex justify-content-center">
+                <div className="row row-cols-auto" style={{ marginTop: '1rem', gap: '1rem', display: 'flex', justifyContent: 'center' }}>
                     {productosFiltrados.map((producto, i) => (
                         <div className="col mb-4" key={i}>
                             <ProductCard
@@ -210,13 +235,13 @@ export default function Carta() {
             </div>
 
             {mostrarCarrito && (
-                <Carrito
-                    productosDelCarrito={productosDelCarrito}
-                    aumentar={aumentarCantidad}
-                    disminuir={disminuirCantidad}
-                    cerrarCarrito={() => setMostrarCarrito(false)}
-                    onConfirmar={confirmarPedido}
-                />
+                                <Carrito
+                                    productosDelCarrito={productosDelCarrito}
+                                    aumentar={aumentarCantidad}
+                                    disminuir={disminuirCantidad}
+                                    cerrarCarrito={() => setMostrarCarrito(false)}
+                                    onConfirmar={confirmarPedido}
+                                />
             )}
         </div>
     );

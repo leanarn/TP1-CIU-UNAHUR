@@ -16,13 +16,16 @@ export default function Contacto(){
         })
     }
     const manejarEnvio = (e) =>{
+<<<<<<< HEAD
         e.preventDefault();
         console.log(formulario)
+=======
+>>>>>>> 54639645848096cfda3153fa02c747dec78dbde4
         alert("Gracias por tu mensaje!")
     }
     return(
         <div>
-            <Navbar/>
+            <Navbar desactivado={true}/>
             <div className="container"> 
                 <div className="row"> 
                     <div className="col-sm p-4"> 
