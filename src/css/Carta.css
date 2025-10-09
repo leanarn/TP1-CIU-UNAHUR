@@ -1,17 +1,104 @@
-/* Estilo para la carta */
+/* Fondo blanco por defecto */
 .carta-container {
-
-    background-color: #F4EBDC; 
-    min-height: 100vh; 
-    padding-bottom: 30px; 
+    background-color: #ffffff !important;
+    min-height: 100vh;
+    padding-bottom: 30px;
 }
 
-/* Estilo para productos en grid no funcionó */
+/* Evita que Bootstrap cambie el color del body */
+body {
+    background-color: #ffffff !important;
+}
+
+/* Grid de productos */
 .productos-grid {
     margin-top: 1rem;
-    gap: 1.5rem; 
+    gap: 1.5rem;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     padding: 20px 0;
+}
+
+/*Tema oscuro */
+.dark-theme {
+    background-color: #1c1c1c !important;
+    color: #f5f5f5 !important;
+}
+
+.dark-theme .card {
+    background-color: #2a2a2a;
+    color: #f5f5f5;
+    border: 1px solid #444;
+}
+
+.dark-theme .btn-outline-dark {
+    color: #f5f5f5;
+    border-color: #888;
+}
+
+.dark-theme .btn-outline-dark:hover {
+    background-color: #333;
+}
+
+.dark-theme .dropdown-menu {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+/*Ajustes visuales para menú de categorías en modo oscuro */
+.dark-theme .dropdown-menu {
+    background-color: #2a2a2a !important;
+    color: #fff !important;
+    border: 1px solid #555;
+}
+
+.dark-theme .dropdown-item {
+    color: #f5f5f5 !important;
+}
+
+.dark-theme .dropdown-item:hover {
+    background-color: #3a3a3a !important;
+    color: #fff !important;
+}
+.dark-theme .btn-secondary {
+    background-color: #444 !important;
+    border: none !important;
+    color: #fff !important;
+}
+
+.dark-theme .btn-secondary:hover {
+    background-color: #555 !important;
+}
+/* Botón redondo para alternar tema */
+.btn-toggle-tema {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* Modo claro (ícono luna) */
+.btn-toggle-tema.claro {
+    background-color: #f8f9fa;
+    color: #222;
+}
+
+.btn-toggle-tema.claro:hover {
+    background-color: #e0e0e0;
+}
+
+/* Modo oscuro (ícono sol) */
+.btn-toggle-tema.oscuro {
+    background-color: #2c2c2c;
+    color: #ffcc00;
+}
+
+.btn-toggle-tema.oscuro:hover {
+    background-color: #444;
 }

@@ -2,10 +2,12 @@ import ProductCard from "../componentes/ProductCard";
 import Navbar from '../componentes/Navbar';
 import { useState, useEffect } from 'react';
 import Carrito from '../componentes/Carrito';
+import '../css/Carta.css'; 
 
 export default function Carta() {
 
     const [mostrarCarrito, setMostrarCarrito] = useState(false);
+    const [temaOscuro, setTemaOscuro] = useState(false); 
 
     // localStorage
     const [productosDelCarrito, setProductosDelCarrito] = useState(() => {
@@ -187,9 +189,19 @@ useEffect(() => {
 
 ////////
 return (
-        <div>
-            <Navbar verCarrito={() => setMostrarCarrito(!mostrarCarrito)} />
+    <div className={temaOscuro ? "carta-container dark-theme" : "carta-container"}>
+        <Navbar verCarrito={() => setMostrarCarrito(!mostrarCarrito)} />
 
+        {/*Botón cambio de tema */}
+        <div className="container d-flex justify-content-end mt-3 me-3">
+            <button
+                className={`btn btn-toggle-tema ${temaOscuro ? "oscuro" : "claro"}`}
+                onClick={() => setTemaOscuro(!temaOscuro)}
+                title={temaOscuro ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+            >
+                <i className={`bi ${temaOscuro ? "bi-sun-fill" : "bi-moon-fill"}`}></i>
+            </button>
+        </div>
             {/* 🔹 Dropdown Categorías */}
             <div className="container mt-3 d-flex">
                 <div className="dropdown ms-auto">
