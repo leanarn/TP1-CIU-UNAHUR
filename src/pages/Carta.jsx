@@ -7,7 +7,10 @@ import '../css/Carta.css';
 export default function Carta() {
 
     const [mostrarCarrito, setMostrarCarrito] = useState(false);
-    const [temaOscuro, setTemaOscuro] = useState(false); 
+    const [temaOscuro, setTemaOscuro] = useState(() => {
+    const guardado = localStorage.getItem('temaOscuro');
+    return guardado ? JSON.parse(guardado) : false;
+});
 
     // localStorage
     const [productosDelCarrito, setProductosDelCarrito] = useState(() => {
@@ -188,11 +191,23 @@ useEffect(() => {
 
 
 ////////
+
+// Sincroniza el tema con el <body> y lo guarda en localStorage
+useEffect(() => {
+  if (temaOscuro) {
+    document.body.classList.add("dark-theme");
+  } else {
+    document.body.classList.remove("dark-theme");
+  }
+  localStorage.setItem('temaOscuro', JSON.stringify(temaOscuro));
+}, [temaOscuro]);
+
+
 return (
     <div className={temaOscuro ? "carta-container dark-theme" : "carta-container"}>
         <Navbar verCarrito={() => setMostrarCarrito(!mostrarCarrito)} />
 
-        {/*Botón cambio de tema */}
+        {/* Botón cambio de tema */}
         <div className="container d-flex justify-content-end mt-3 me-3">
             <button
                 className={`btn btn-toggle-tema ${temaOscuro ? "oscuro" : "claro"}`}

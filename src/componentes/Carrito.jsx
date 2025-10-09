@@ -6,14 +6,22 @@ export default function Carrito({ productosDelCarrito, aumentar, disminuir, cerr
         0
     );
 
+    // Detectar si el modo oscuro está activo (por la clase del body)
+    const temaOscuroActivo = document.body.classList.contains('dark-theme');
+
     return (
-        <div className={Styles.carrito_overlay} onClick={cerrarCarrito}>
+        <div
+            className={`${Styles.carrito_overlay} ${temaOscuroActivo ? Styles.dark_overlay : ''}`}
+            onClick={cerrarCarrito}
+        >
             <div
-                className={Styles.carrito_modal}
+                className={`${Styles.carrito_modal} ${temaOscuroActivo ? Styles.dark_modal : ''}`}
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className={Styles.carrito_header}>
-                    <h1 className={Styles.carrito_titulo}>Mi Pedido ☕</h1>
+                    <h1 className={`${Styles.carrito_titulo} ${temaOscuroActivo ? Styles.dark_text : ''}`}>
+                        Mi Pedido ☕
+                    </h1>
                     <button className="btn-close" onClick={cerrarCarrito}></button>
                 </div>
 
@@ -25,7 +33,10 @@ export default function Carrito({ productosDelCarrito, aumentar, disminuir, cerr
                     <>
                         <div className={Styles.carrito_lista}>
                             {productosDelCarrito.map((item, index) => (
-                                <div key={index} className={Styles.carrito_item}>
+                                <div
+                                    key={index}
+                                    className={`${Styles.carrito_item} ${temaOscuroActivo ? Styles.dark_item : ''}`}
+                                >
                                     {/* Imagen */}
                                     <img
                                         src={item.imagen}
@@ -34,7 +45,7 @@ export default function Carrito({ productosDelCarrito, aumentar, disminuir, cerr
                                     />
 
                                     {/* Nombre */}
-                                    <span className={`${Styles.carrito_nombre} fw-bold`}>
+                                    <span className={`${Styles.carrito_nombre} ${temaOscuroActivo ? Styles.dark_text : ''} fw-bold`}>
                                         {item.nombre}
                                     </span>
 
@@ -51,7 +62,7 @@ export default function Carrito({ productosDelCarrito, aumentar, disminuir, cerr
                                             )}
                                         </button>
 
-                                        <span className={Styles.carrito_cantidad}>
+                                        <span className={`${Styles.carrito_cantidad} ${temaOscuroActivo ? Styles.dark_cantidad : ''}`}>
                                             {item.cantidad}
                                         </span>
 
@@ -64,18 +75,20 @@ export default function Carrito({ productosDelCarrito, aumentar, disminuir, cerr
                                     </div>
 
                                     {/* Subtotal */}
-                                    <span className={Styles.carrito_precio}>
+                                    <span className={`${Styles.carrito_precio} ${temaOscuroActivo ? Styles.dark_text : ''}`}>
                                         ${(item.precio * item.cantidad).toFixed(2)}
                                     </span>
                                 </div>
                             ))}
                         </div>
 
-                        <div className={Styles.carrito_total}>
+                        {/* Total del carrito */}
+                        <div className={`${Styles.carrito_total} ${temaOscuroActivo ? Styles.dark_total : ''}`}>
                             <span>TOTAL:</span>
                             <span>${total.toFixed(2)}</span>
                         </div>
 
+                        {/* Botón Confirmar */}
                         <button
                             className={`btn ${Styles.btn_confirmar_pedido}`}
                             onClick={onConfirmar}

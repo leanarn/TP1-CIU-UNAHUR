@@ -180,3 +180,33 @@
         width: 100%;
     }
 }
+/*Estilos modo oscuro*/
+.dark_overlay {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.dark_modal {
+    background-color: #2a2a2a !important;
+    color: #f5f5f5 !important;
+    border: 1px solid #444;
+}
+
+.dark_item {
+    background-color: #333 !important;
+    border: 1px solid #555 !important;
+}
+
+.dark_text {
+    color: #f5f5f5 !important;
+}
+
+.dark_cantidad {
+    background-color: #444 !important;
+    color: #fff !important;
+    border: 1px solid #666 !important;
+}
+
+.dark_total {
+    border-top: 2px solid #666 !important;
+    color: #fff !important;
+}
