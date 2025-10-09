@@ -3,7 +3,7 @@ import logo from "../assets/logo2.png";
 import styles from "../css/Navbar.module.css";
 import { useState } from "react";
 
-export default function Navbar({ verCarrito }){
+export default function Navbar({ verCarrito, desactivado=false }){
     const [isOpen, setIsOpen] = useState(false);
 
     return(
@@ -21,9 +21,11 @@ export default function Navbar({ verCarrito }){
                         <Link to="/" className={`nav-link ${styles.nav_item}`} > Inicio </Link>
                         <Link to="/carta" className={`nav-link ${styles.nav_item}`} > Carta </Link>
                         <Link to="/contacto" className={`nav-link ${styles.nav_item}`} > Contacto </Link>
-                        <button className={`nav-link ${styles.nav_item} ${styles.nav_item_carrito}`} onClick={() => {verCarrito(); setIsOpen(false)}}>  
-                            <i className="bi bi-cart"></i> Ver carrito
-                        </button>
+                        {
+                            !desactivado && <button className={`nav-link ${styles.nav_item} ${styles.nav_item_carrito}`} onClick={() => {verCarrito(); setIsOpen(false)}}>  
+                                <i className="bi bi-cart"></i> Ver carrito
+                            </button>
+                        }
                     </div>
                 </div>
             </div>
