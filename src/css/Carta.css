@@ -102,3 +102,21 @@ body {
 .btn-toggle-tema.oscuro:hover {
     background-color: #444;
 }
+/* 🟤 Botón igual al "Confirmar pedido" */
+.btn-agregar {
+  background-color: #C88141 !important;
+  border: none;
+  color: white !important;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 10px;
+  margin-top: 10px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  width: 100%;
+}
+
+.btn-agregar:hover {
+  background-color: #A66835 !important;
+  transform: translateY(-1px);
+}

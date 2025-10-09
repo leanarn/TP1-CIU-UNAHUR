@@ -11,7 +11,7 @@ export default function ProductCard({ producto, alAgregar, fueAgregado }){
                 <p className="card-text" style={{ textAlign: 'left' }}> {producto.descripcion} </p>
                 <p style={{ textAlign: 'left' }}>Precio: ${producto.precio}</p>
                 <button 
-                    className={fueAgregado ? "btn btn-success" : "btn btn-primary"} 
+                    className={fueAgregado ? "btn btn-success" : "btn-agregar"} 
                     onClick={alAgregar}
                     disabled={fueAgregado}
                 >
