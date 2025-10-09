@@ -1,8 +1,23 @@
+import { useState } from "react";
 import Navbar from "../componentes/Navbar";
 
 export default function Contacto(){
+    const [formulario, setFormulario] = useState({
+        nombreApellido: "",
+        email: "",
+        telefono: "",
+        mensaje: ""
+    })
+    const manejarCambios = (e) =>{
+        const{name, value} = e.target;
+        setFormulario({
+            ...formulario, 
+            [name]: value
+        })
+    }
     const manejarEnvio = (e) =>{
         e.preventDefault();
+        console.log(formulario)
         alert("Gracias por tu mensaje!")
     }
     return(
@@ -15,21 +30,21 @@ export default function Contacto(){
                         <h3 style={{fontSize:"1.3rem", color:"#C88141"}}>Comuniquese tambien con nosotros completando el siguiente formulario:</h3>
                     </div>
                     <form className="col-sm p-4" onSubmit={manejarEnvio}> 
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Nombre y Apellido</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput" required/>
+                        <div className="form-group">
+                            <label htmlFor="formGroupExampleInput">Nombre y Apellido</label>
+                            <input name="nombreApellido" value={formulario.nombreApellido} onChange={manejarCambios} type="text" className="form-control" id="formGroupExampleInput" required/>
                         </div>
-                        <div class="form-group mt-3">
-                            <label for="formGroupExampleInput2">Telefono</label>
-                            <input type="number" class="form-control" id="formGroupExampleInput2"/>
+                        <div className="form-group mt-3">
+                            <label htmlFor="formGroupExampleInput2">Telefono</label>
+                            <input name="telefono" value={formulario.telefono} onChange={manejarCambios} type="number" className="form-control" id="formGroupExampleInput2"/>
                         </div>
-                        <div class="form-group mt-3">
-                            <label for="formGroupExampleInput">E-Mail</label>
-                            <input type="email" class="form-control" id="formGroupExampleInput"/>
+                        <div className="form-group mt-3">
+                            <label htmlFor="formGroupExampleInput">E-Mail</label>
+                            <input name="email" value={formulario.email} onChange={manejarCambios} type="email" className="form-control" id="formGroupExampleInput"/>
                         </div>
-                        <div class="form-group mt-3">
-                            <label for="formGroupExampleInput">Mensaje</label>
-                            <textarea type="text" class="form-control" id="formGroupExampleInput" required/>
+                        <div className="form-group mt-3">
+                            <label htmlFor="formGroupExampleInput">Mensaje</label>
+                            <textarea name="mensaje" value={formulario.mensaje} onChange={manejarCambios} type="text" className="form-control" id="formGroupExampleInput" required/>
                         </div>
                         <button className="btn btn-primary btn-sm mt-3" type="submit">Enviar</button>
                     </form>
